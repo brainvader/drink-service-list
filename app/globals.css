@@ -92,3 +92,8 @@ a {
     color-scheme: dark;
   }
 }
+
+@page {
+  size: A4 portrait;
+  margin: 0mm;
+}
