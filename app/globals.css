@@ -2,3 +2,11 @@
   size: A4 portrait;
   margin: 0mm;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+table tbody tr td {
+  border: solid 1px;
+}
