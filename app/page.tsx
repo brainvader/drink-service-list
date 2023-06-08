@@ -1,8 +1,16 @@
+'use client'
+
 import styles from './page.module.css'
+
+import { Button } from "@nextui-org/react";
+import React from 'react';
 
 export default function Home() {
   return (
     <main className={styles.main}>
+      <div className={styles.inputCSV}>
+        <Button>Input CSV</Button>
+      </div>
       <h1 className={styles.title}>飲み物提供表</h1>
       <div className={styles.container}>
         <table className={styles.column}>
