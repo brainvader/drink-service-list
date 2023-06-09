@@ -16,7 +16,10 @@ export default function Home() {
   const inputHandler = () => {
     setVisible(false);
     const csvValues = csv.split("\n")
-      .map((row) => row.split(","))
+      .map((row) => {
+        const values = row.split(",");
+        return values.map(v => v.trim())
+      })
       .map((row) => {
         const yomi = row[1];
         const initialCharacter = findKanaInitialChar(yomi);
