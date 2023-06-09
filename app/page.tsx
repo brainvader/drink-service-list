@@ -26,6 +26,7 @@ export default function Home() {
       <div className={styles.inputCSV}>
         <Button auto bordered onPress={handler}>Input CSV</Button>
         <Modal
+          blur
           closeButton
           aria-labelledby="csv input modal"
           open={visible}
