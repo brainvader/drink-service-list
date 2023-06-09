@@ -48,7 +48,7 @@ export default function Home() {
           </Modal.Footer>
         </Modal>
       </div>
-      <OrderTable></OrderTable>
+      <OrderTable />
     </main >
   )
 }
