@@ -1,6 +1,8 @@
 'use client'
 
 import styles from './page.module.css'
+import { dummyCSV } from './lib/constants'
+import { findKanaInitialChar } from './lib/utils'
 
 import { Button, FormElement, Modal, Text, Textarea } from "@nextui-org/react";
 
@@ -8,13 +10,20 @@ import { useState } from 'react';
 import OrderTable from './components/OrderTable';
 
 export default function Home() {
-  const [visible, setVisible] = useState(false);
-  const [csv, setCSV] = useState("名前, よみがな, コーヒー(Hミサ)")
-
+  const [visible, setVisible] = useState(true);
+  const [csv, setCSV] = useState(dummyCSV);
   const handler = () => setVisible(true);
   const inputHandler = () => {
     setVisible(false);
-    console.log(csv)
+    const csvValues = csv.split("\n")
+      .map((row) => row.split(","))
+      .map((row) => {
+        const yomi = row[1];
+        const initialCharacter = findKanaInitialChar(yomi);
+        return [initialCharacter, ...row]
+      });
+
+    console.log(csvValues);
   };
 
   const inputDataHandler = (e: React.ChangeEvent<HTMLTextAreaElement | FormElement>) => {
