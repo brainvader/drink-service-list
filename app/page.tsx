@@ -13,6 +13,8 @@ import { UserData, UserMap } from 'types/users';
 export default function Home() {
   const [visible, setVisible] = useState(true);
   const [csv, setCSV] = useState(dummyCSV);
+  const [userMap, setUserMap] = useState<UserMap>({})
+
   const handler = () => setVisible(true);
   const inputHandler = () => {
     setVisible(false);
