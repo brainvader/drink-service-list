@@ -8,6 +8,7 @@ import { Button, FormElement, Modal, Text, Textarea } from "@nextui-org/react";
 
 import { useState } from 'react';
 import OrderTable from './components/OrderTable';
+import { UserData, UserMap } from 'types/users';
 
 export default function Home() {
   const [visible, setVisible] = useState(true);
