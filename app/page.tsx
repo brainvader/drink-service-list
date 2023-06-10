@@ -23,7 +23,8 @@ export default function Home() {
     initialCharacters.map((kana) => newMap.set(kana, new Set()));
 
     // parse csv
-    csv.split("\n")
+    const newData: UserData[] = csv.split("\n")
+      .filter(row => row.includes(","))
       .map((row) => row.split(",").map(v => v.trim()))
       .map((row, index) => {
         const [name, yomi, order] = row;
