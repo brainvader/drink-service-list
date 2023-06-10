@@ -1,10 +1,10 @@
 'use client'
 
 import styles from './page.module.css'
-import { dummyCSV } from './lib/constants'
+import { dummyCSV, initialCharacters } from './lib/constants'
 import { findKanaInitialChar } from './lib/utils'
 
-import { Button, FormElement, Modal, Text, Textarea } from "@nextui-org/react";
+import { Button, FormElement, Modal, NextUIProvider, Text, Textarea } from "@nextui-org/react";
 
 import { useState } from 'react';
 import OrderTable from './components/OrderTable';
@@ -18,18 +18,32 @@ export default function Home() {
   const handler = () => setVisible(true);
   const inputHandler = () => {
     setVisible(false);
-    const csvValues = csv.split("\n")
-      .map((row) => {
-        const values = row.split(",");
-        return values.map(v => v.trim())
-      })
-      .map((row) => {
-        const yomi = row[1];
+
+    const newMap: Map<string, Set<string>> = new Map();
+    initialCharacters.map((kana) => newMap.set(kana, new Set()));
+
+    // parse csv
+    csv.split("\n")
+      .map((row) => row.split(",").map(v => v.trim()))
+      .map((row, index) => {
+        const [name, yomi, order] = row;
         const initialCharacter = findKanaInitialChar(yomi);
-        return [initialCharacter, ...row]
+        const userSet = newMap.get(initialCharacter);
+        if (userSet) {
+          const user: UserData = { id: index, name: name, order: order };
+          // To avoid duplication, stringify UserData objects
+          userSet.add(JSON.stringify(user));
+        }
       });
 
-    console.log(csvValues);
+    const newValues: UserMap = {};
+    initialCharacters.map(keyCharacter => {
+      const userSet = newMap.get(keyCharacter);
+      const users: UserData[] = Array.from(userSet!).map(userStr => JSON.parse(userStr));
+      users.sort((a, b) => a.id - b.id);
+      newValues[keyCharacter] = users;
+    })
+    setUserMap(newValues);
   };
 
   const inputDataHandler = (e: React.ChangeEvent<HTMLTextAreaElement | FormElement>) => {
