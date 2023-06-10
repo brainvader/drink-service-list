@@ -8,12 +8,12 @@ import { Button, FormElement, Modal, NextUIProvider, Text, Textarea } from "@nex
 
 import { useState } from 'react';
 import OrderTable from './components/OrderTable';
-import { UserData, UserMap } from 'types/users';
+import { UserData } from 'types/users';
 
 export default function Home() {
   const [visible, setVisible] = useState(true);
   const [csv, setCSV] = useState(dummyCSV);
-  const [userMap, setUserMap] = useState<UserMap>({})
+  const [users, setUsers] = useState<UserData[]>([]);
 
   const handler = () => setVisible(true);
   const inputHandler = () => {

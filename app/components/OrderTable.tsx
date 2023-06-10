@@ -1,4 +1,12 @@
 import styles from './OrderTable.module.css'
+import { UserData } from 'types/users';
+
+export default function OrderTable({ users }: { users: UserData[] }) {
+    const [totalUser, setTotalUser] = useState(0);
+
+    useEffect(() => {
+        setTotalUser(users.length);
+    }, [users]);
 
 export default function OrderTable() {
     return (
