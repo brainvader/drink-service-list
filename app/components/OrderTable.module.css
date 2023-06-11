@@ -1,19 +1,47 @@
 .title {
+    height: 20%;
+    font-size: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
     text-align: center;
 }
 
 .container {
+    height: 70%;
     margin: 0 5%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     flex-direction: row;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    font-size: 10.5px;
 }
 
 .column {
-    width: 33%;
+    width: 100%;
+}
+
+.column .kana_rows .user_row .kana_cell,
+.column .kana_rows .user_row .name_cell,
+.column .kana_rows .user_row .order_cell {
+    border-right: 1px solid black;
+}
+
+/* かなごとの区切り */
+.column .kana_rows:not(:last-child) .user_row .kana_cell,
+.column .kana_rows:not(:last-child) .user_row:last-child .name_cell,
+.column .kana_rows:not(:last-child) .user_row:last-child .order_cell {
+    border-bottom: 4px solid black;
+}
+
+
+/* セルが順番に白灰になるようにする */
+.column:nth-child(odd) .kana_rows tr:nth-child(odd) .name_cell,
+.column:nth-child(odd) .kana_rows tr:nth-child(odd) .order_cell,
+.column:nth-child(even) .kana_rows tr:nth-child(even) .name_cell,
+.column:nth-child(even) .kana_rows tr:nth-child(even) .order_cell {
+    background-color: gray;
 }
