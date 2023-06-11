@@ -1,4 +1,6 @@
-const findKanaInitialChar = (yomi: String) => {
+import { KanaType } from "types/users";
+
+const findKanaInitialChar = (yomi: String): KanaType => {
     const yomiCode = yomi.charCodeAt(0);
     if ("あ".charCodeAt(0) <= yomiCode && yomiCode < "か".charCodeAt(0)) {
         return "あ";
