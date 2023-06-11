@@ -104,7 +104,7 @@ export default function OrderTable({ users }: { users: UserData[] }) {
 
     return (
         < >
-            {/* <h1 className={styles.title}>飲み物提供表</h1> */}
+            <h1 className={styles.title}>飲み物提供表</h1>
             <div className={styles.container}>
                 {tables.map(table => {
                     return table;
