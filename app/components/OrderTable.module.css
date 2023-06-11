@@ -1,47 +1,52 @@
-.title {
-    height: 20%;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
+    .title {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
 
-.container {
-    height: 70%;
-    margin: 0 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: row;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    font-size: 10.5px;
-}
+    .container {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
 
-.column {
-    width: 100%;
-}
+    .container {
+        width: 90%;
+        font-size: 10.5px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        border-left: 1px solid black;
+    }
 
-.column .kana_rows .user_row .kana_cell,
-.column .kana_rows .user_row .name_cell,
-.column .kana_rows .user_row .order_cell {
-    border-right: 1px solid black;
-}
+    .column {
+        width: 100%;
+        box-sizing: border-box;
+        border-spacing: 0px 0px;
+        border-collapse: no-collapse;
+    }
 
-/* かなごとの区切り */
-.column .kana_rows:not(:last-child) .user_row .kana_cell,
-.column .kana_rows:not(:last-child) .user_row:last-child .name_cell,
-.column .kana_rows:not(:last-child) .user_row:last-child .order_cell {
-    border-bottom: 4px solid black;
-}
+    .kana_rows,
+    .user_row {
+        box-sizing: border-box;
+    }
 
+    .kana_cell,
+    .name_cell,
+    .order_cell {
+        box-sizing: border-box;
+    }
 
-/* セルが順番に白灰になるようにする */
-.column:nth-child(odd) .kana_rows tr:nth-child(odd) .name_cell,
-.column:nth-child(odd) .kana_rows tr:nth-child(odd) .order_cell,
-.column:nth-child(even) .kana_rows tr:nth-child(even) .name_cell,
-.column:nth-child(even) .kana_rows tr:nth-child(even) .order_cell {
-    background-color: gray;
-}
+    .column .kana_rows .user_row .kana_cell,
+    .column .kana_rows .user_row .name_cell,
+    .column .kana_rows .user_row .order_cell {
+        border-right: 1px solid black;
+    }
+
+    /* かなごとの区切り */
+    .column .kana_rows:not(:last-child) .user_row .kana_cell,
+    .column .kana_rows:not(:last-child) .user_row:last-child .name_cell,
+    .column .kana_rows:not(:last-child) .user_row:last-child .order_cell {
+        border-bottom: 3px solid black;
+    }
