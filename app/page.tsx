@@ -28,23 +28,16 @@ export default function Home() {
       .map((row) => row.split(",").map(v => v.trim()))
       .map((row, index) => {
         const [name, yomi, order] = row;
-        const initialCharacter = findKanaInitialChar(yomi);
-        const userSet = newMap.get(initialCharacter);
-        if (userSet) {
-          const user: UserData = { id: index, name: name, order: order };
-          // To avoid duplication, stringify UserData objects
-          userSet.add(JSON.stringify(user));
+        const kana = findKanaInitialChar(yomi);
+        return {
+          id: index,
+          kana: kana,
+          name: name,
+          order: order
         }
       });
 
-    const newValues: UserMap = {};
-    initialCharacters.map(keyCharacter => {
-      const userSet = newMap.get(keyCharacter);
-      const users: UserData[] = Array.from(userSet!).map(userStr => JSON.parse(userStr));
-      users.sort((a, b) => a.id - b.id);
-      newValues[keyCharacter] = users;
-    })
-    setUserMap(newValues);
+    setUsers(newData);
   };
 
   const inputDataHandler = (e: React.ChangeEvent<HTMLTextAreaElement | FormElement>) => {
