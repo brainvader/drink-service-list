@@ -51,15 +51,12 @@ export default function OrderTable({ users }: { users: UserData[] }) {
         }
     })
 
-    console.log(`rowCount: ${rowCount}`);
-
     const createTbody = (kanaRows: UserRow[], rowSpan: number, columnNum: number) => {
         const evenColor = (columnNum % 2 === 0) ? "white" : "gray";
         const oddColor = (columnNum % 2 === 0) ? "gray" : "white";
         return (<tbody className={styles.kana_rows}>
             {kanaRows.map((kanaRow, index) => {
                 const id = kanaRow.id;
-                console.log(`id: ${id}`);
                 const style = (id % 2 === 0) ? { backgroundColor: evenColor } : { backgroundColor: oddColor };
                 return (
                     <tr className={styles.user_row}>
