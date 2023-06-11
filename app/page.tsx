@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import { dummyCSV, initialCharacters } from './lib/constants'
 import { findKanaInitialChar } from './lib/utils'
 
-import { Button, FormElement, Modal, NextUIProvider, Text, Textarea } from "@nextui-org/react";
+import { Button, FormElement, Modal, Text, Textarea } from "@nextui-org/react";
 
 import { useState } from 'react';
 import OrderTable from './components/OrderTable';
@@ -18,9 +18,6 @@ export default function Home() {
   const handler = () => setVisible(true);
   const inputHandler = () => {
     setVisible(false);
-
-    const newMap: Map<string, Set<string>> = new Map();
-    initialCharacters.map((kana) => newMap.set(kana, new Set()));
 
     // parse csv
     const newData: UserData[] = csv.split("\n")
@@ -71,7 +68,7 @@ export default function Home() {
           </Modal.Footer>
         </Modal>
       </div>
-      <OrderTable />
+      <OrderTable users={users} />
     </main >
   )
 }
