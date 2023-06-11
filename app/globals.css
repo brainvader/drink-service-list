@@ -1,13 +1,21 @@
 @page {
   size: A4 portrait;
-  margin: 0mm;
+  margin: 0 auto;
 }
 
-table {
-  border-spacing: 0;
-  border-collapse: no-collapse;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-table tbody tr td {
-  border: solid 1px;
+html,
+body {
+  max-width: 100vw;
+  overflow: hidden;
+}
+
+body {
+  print-color-adjust: exact !important;
+  -webkit-print-color-adjust: exact !important;
 }
