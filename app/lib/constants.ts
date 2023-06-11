@@ -9,4 +9,7 @@ const dummyCSV = [
 
 const initialCharacters: KanaType[] = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
 
+export const MAX_COLUMNS = 3;
+export const MAX_ROWS = 50;
+
 export { dummyCSV, initialCharacters };
