@@ -54,23 +54,18 @@ export default function OrderTable({ users }: { users: UserData[] }) {
 
 
         for (let j = 0; j < MAX_ROWS; j++) {
-            // rows.push(<tr>
-            //     <td>{subRows[j].kana}</td>
-            //     <td>{subRows[j].name}</td>
-            //     <td>{subRows[j].order}</td>
-            // </tr>);
             const row = subRows[j];
 
             if (j === MAX_ROWS - 1) {
                 const rowSpan = kanaRows.length;
                 rows.push(
-                    <tbody>
+                    <tbody className={styles.kana_rows}>
                         {kanaRows.map((kanaRow, index) => {
                             return (
-                                <tr>
-                                    {(index === 0) ? <td rowSpan={rowSpan}>{kanaRow.kana}</td> : <></>}
-                                    <td>{kanaRow.name}</td>
-                                    <td>{kanaRow.order}</td>
+                                <tr className={styles.user_row}>
+                                    {(index === 0) ? <td className={styles.kana_cell} rowSpan={rowSpan}>{kanaRow.kana}</td> : <></>}
+                                    <td className={styles.name_cell}>{kanaRow.name}</td>
+                                    <td className={styles.order_cell}>{kanaRow.order}</td>
                                 </tr>);
                         })}
                     </tbody>);
@@ -80,13 +75,13 @@ export default function OrderTable({ users }: { users: UserData[] }) {
             if (currentKana !== row.kana) {
                 const rowSpan = kanaRows.length;
                 rows.push(
-                    <tbody>
+                    <tbody className={styles.kana_rows}>
                         {kanaRows.map((kanaRow, index) => {
                             return (
-                                <tr>
-                                    {(index === 0) ? <td rowSpan={rowSpan}>{kanaRow.kana}</td> : <></>}
-                                    <td>{kanaRow.name}</td>
-                                    <td>{kanaRow.order}</td>
+                                <tr className={styles.user_row}>
+                                    {(index === 0) ? <td className={styles.kana_cell} rowSpan={rowSpan}>{kanaRow.kana}</td> : <></>}
+                                    <td className={styles.name_cell}>{kanaRow.name}</td>
+                                    <td className={styles.order_cell}>{kanaRow.order}</td>
                                 </tr>);
                         })}
                     </tbody>);
@@ -109,115 +104,11 @@ export default function OrderTable({ users }: { users: UserData[] }) {
 
     return (
         < >
-            <h1 className={styles.title}>飲み物提供表</h1>
+            {/* <h1 className={styles.title}>飲み物提供表</h1> */}
             <div className={styles.container}>
                 {tables.map(table => {
                     return table;
                 })}
-
-                {/* <table className={styles.column}>
-                    <tbody>
-                        <tr>
-                            <td rowSpan={3}>い</td>
-                            <td>あしべ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>あべし</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>あべし</td>
-                            <td>コーヒー</td>
-                        </tr>
-                    </tbody>
-
-
-                    <tbody>
-                        <tr>
-                            <td rowSpan={3}>い</td>
-                            <td>なまえ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>なまえ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>なまえ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                    </tbody>
-
-                    <tbody>
-                        <tr>
-                            <td rowSpan={3}>い</td>
-                            <td>なまえ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>なまえ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>なまえ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                    </tbody>
-
-                </table>
-
-                <table className={styles.column}>
-                    <tbody>
-                        <tr>
-                            <td rowSpan={3}>あ</td>
-                            <td>あしべ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>あべし</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>あべし</td>
-                            <td>コーヒー</td>
-                        </tr>
-                    </tbody>
-
-
-                    <tbody>
-                        <tr>
-                            <td rowSpan={3}>い</td>
-                            <td>なまえ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>なまえ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                        <tr>
-                            <td>なまえ</td>
-                            <td>コーヒー</td>
-                        </tr>
-                    </tbody>
-
-                    <tbody>
-                        <tr>
-                            <td rowSpan={3}>い</td>
-                            <td>なまえ</td>
-                            <td>紅茶</td>
-                        </tr>
-                        <tr>
-                            <td>なまえ</td>
-                            <td>紅茶</td>
-                        </tr>
-                        <tr>
-                            <td>なまえ</td>
-                            <td>紅茶</td>
-                        </tr>
-                    </tbody>
-
-                </table> */}
             </div>
         </>
     )
