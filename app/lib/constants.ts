@@ -7,6 +7,6 @@ const dummyCSV = [
     "洋風　太郎, ようふう　たろう, コーヒー(Cミ)"
 ].join('\n');
 
-const initialCharacters = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
+const initialCharacters: KanaType[] = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
 
 export { dummyCSV, initialCharacters };
