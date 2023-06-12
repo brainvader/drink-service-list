@@ -59,7 +59,7 @@ export default function OrderTable({ users }: { users: UserData[] }) {
                 const id = kanaRow.id;
                 const style = (id % 2 === 0) ? { backgroundColor: evenColor } : { backgroundColor: oddColor };
                 return (
-                    <tr className={styles.user_row}>
+                    <tr key={kanaRow.id.toString()} className={styles.user_row}>
                         {(index === 0) ? <td className={styles.kana_cell} rowSpan={rowSpan}>{kanaRow.kana}</td> : <></>}
                         <td style={style} className={styles.name_cell}>{kanaRow.name}</td>
                         <td style={style} className={styles.order_cell}>{kanaRow.order}</td>
