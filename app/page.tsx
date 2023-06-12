@@ -1,95 +1,74 @@
-import Image from 'next/image'
+'use client'
+
 import styles from './page.module.css'
+import { dummyCSV, initialCharacters } from './lib/constants'
+import { findKanaInitialChar } from './lib/utils'
+
+import { Button, FormElement, Modal, Text, Textarea } from "@nextui-org/react";
+
+import { useState } from 'react';
+import OrderTable from './components/OrderTable';
+import { UserData } from 'types/users';
 
 export default function Home() {
+  const [visible, setVisible] = useState(true);
+  const [csv, setCSV] = useState(dummyCSV);
+  const [users, setUsers] = useState<UserData[]>([]);
+
+  const handler = () => setVisible(true);
+  const inputHandler = () => {
+    setVisible(false);
+
+    // parse csv
+    const newData: UserData[] = csv.split("\n")
+      .filter(row => row.includes(","))
+      .map((row) => row.split(",").map(v => v.trim()))
+      .map((row, index) => {
+        const [name, yomi, order] = row;
+        const kana = findKanaInitialChar(yomi);
+        return {
+          id: index,
+          kana: kana,
+          name: name,
+          order: order
+        }
+      });
+
+    setUsers(newData);
+  };
+
+  const inputDataHandler = (e: React.ChangeEvent<HTMLTextAreaElement | FormElement>) => {
+    setCSV(e.target.value)
+  }
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+      <div className={styles.inputCSV}>
+        <Button auto bordered onPress={handler}>Input CSV</Button>
+        <Modal
+          blur
+          closeButton
+          aria-labelledby="csv input modal"
+          open={visible}
+          onClose={inputHandler}>
+          <Modal.Header>
+            <Text id="cvs-input" >
+              CSVデータを入力してください
+            </Text>
+          </Modal.Header>
+          <Modal.Body>
+            <Textarea
+              onChange={inputDataHandler}
+              initialValue={csv} />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button auto color='primary' onPress={inputHandler}>
+              Input
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <OrderTable users={users} />
+    </main >
   )
 }

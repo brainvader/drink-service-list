@@ -1,0 +1,50 @@
+    .title {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    .container {
+        width: 90%;
+        font-size: 10.5px;
+        border: 4px solid black;
+    }
+
+    .column {
+        width: 100%;
+        box-sizing: border-box;
+        border-spacing: 0px 0px;
+        border-collapse: no-collapse;
+    }
+
+    .kana_rows,
+    .user_row {
+        box-sizing: border-box;
+    }
+
+    .kana_cell,
+    .name_cell,
+    .order_cell {
+        box-sizing: border-box;
+    }
+
+    .column .kana_rows .user_row .kana_cell,
+    .column .kana_rows .user_row .name_cell,
+    .column .kana_rows .user_row .order_cell {
+        border-right: 1px solid black;
+    }
+
+    /* かなごとの区切り */
+    .column .kana_rows:not(:last-child) .user_row .kana_cell,
+    .column .kana_rows:not(:last-child) .user_row:last-child .name_cell,
+    .column .kana_rows:not(:last-child) .user_row:last-child .order_cell {
+        border-bottom: 3px solid black;
+    }
