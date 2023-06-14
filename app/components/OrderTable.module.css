@@ -34,6 +34,7 @@
 .name_cell,
 .order_cell {
     box-sizing: border-box;
+    font-weight: bold;
 }
 
 .column .kana_rows .user_row .kana_cell,
