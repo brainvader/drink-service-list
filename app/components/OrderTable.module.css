@@ -39,6 +39,7 @@
     .column .kana_rows .user_row .kana_cell,
     .column .kana_rows .user_row .name_cell,
     .column .kana_rows .user_row .order_cell {
+        border-top: 1px solid black;
         border-right: 1px solid black;
     }
 
