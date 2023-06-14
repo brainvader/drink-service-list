@@ -9,6 +9,20 @@ type UserRow = {
     order: string
 }
 
+const createTbody = (kanaRows: UserRow[], rowSpan: number, columnNum: number) => {
+    return (<tbody className={styles.kana_rows}>
+        {kanaRows.map((kanaRow, index) => {
+            const id = kanaRow.id;
+            return (
+                <tr key={kanaRow.id.toString()} className={styles.user_row}>
+                    {(index === 0) ? <td className={styles.kana_cell} rowSpan={rowSpan}>{kanaRow.kana}</td> : <></>}
+                    <td className={styles.name_cell}>{kanaRow.name}</td>
+                    <td className={styles.order_cell}>{kanaRow.order}</td>
+                </tr>);
+        })}
+    </tbody>)
+}
+
 export default function OrderTable({ users }: { users: UserData[] }) {
     const kanaUserMap: Map<KanaType, UserData[]> = new Map();
     initialCharacters.map(kana => kanaUserMap.set(kana, []));
@@ -28,45 +42,40 @@ export default function OrderTable({ users }: { users: UserData[] }) {
     const remainder = MAX_ROWS * MAX_COLUMNS - totalRow;
 
     const fullRows: UserRow[] = [];
+    const emptyRows: UserRow[] = []
+
     let rowCount = 0;
     initialCharacters.map((kana) => {
         const users = kanaUserMap.get(kana);
-        (users ? users : []).map(user => {
-            const { id, kana, name, order } = user
+        if (users === undefined) return;
+        (users).map(user => {
+            const { id, kana, name, order } = user;
             const userRow: UserRow = { id: rowCount, kana: kana, name: name, order: order };
             fullRows.push(userRow);
             rowCount++;
         });
 
         for (let i = 0; i < spaceSize; i++) {
+
+            // there're no elements in corresponding kana
+            if (users.length === 0) {
+                emptyRows.push({ id: rowCount, kana: " ", name: "　　　　　　", order: "　　　　　" });
+                rowCount++;
+                continue;
+            }
+
+            // Add empty rows to make space after kana rows
             fullRows.push({ id: rowCount, kana: kana, name: "　　　　　　", order: "　　　　　" });
             rowCount++;
         }
-
-        if (kana === "わ") {
-            for (let i = 0; i < remainder; i++) {
-                fullRows.push({ id: rowCount, kana: kana, name: "　　　　　　", order: "　　　　　" });
-                rowCount++;
-            }
-        }
     })
 
-    const createTbody = (kanaRows: UserRow[], rowSpan: number, columnNum: number) => {
-        const evenColor = (columnNum % 2 === 0) ? "white" : "gray";
-        const oddColor = (columnNum % 2 === 0) ? "gray" : "white";
-        return (<tbody className={styles.kana_rows}>
-            {kanaRows.map((kanaRow, index) => {
-                const id = kanaRow.id;
-                const style = (id % 2 === 0) ? { backgroundColor: evenColor } : { backgroundColor: oddColor };
-                return (
-                    <tr key={kanaRow.id.toString()} className={styles.user_row}>
-                        {(index === 0) ? <td className={styles.kana_cell} rowSpan={rowSpan}>{kanaRow.kana}</td> : <></>}
-                        <td style={style} className={styles.name_cell}>{kanaRow.name}</td>
-                        <td style={style} className={styles.order_cell}>{kanaRow.order}</td>
-                    </tr>);
-            })}
-        </tbody>)
+    // Add empty rows
+    for (let i = 0; i < remainder; i++) {
+        fullRows.push({ id: rowCount, kana: " ", name: "　　　　　　", order: "　　　　　" });
+        rowCount++;
     }
+    fullRows.push(...emptyRows);
 
     const tables: JSX.Element[] = [];
     let currentKana: KanaType = "あ";
