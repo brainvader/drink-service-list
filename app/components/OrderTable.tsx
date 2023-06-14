@@ -45,8 +45,10 @@ export default function OrderTable({ users }: { users: UserData[] }) {
     let rowCount = 0;
     initialCharacters.map((kana) => {
         const users = kanaUserMap.get(kana);
-        (users ? users : []).map(user => {
-            const { id, kana, name, order } = user
+        if (users === undefined) return;
+
+        (users).map(user => {
+            const { id, kana, name, order } = user;
             const userRow: UserRow = { id: rowCount, kana: kana, name: name, order: order };
             fullRows.push(userRow);
             rowCount++;
