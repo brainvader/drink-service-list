@@ -9,6 +9,20 @@ type UserRow = {
     order: string
 }
 
+const createTbody = (kanaRows: UserRow[], rowSpan: number, columnNum: number) => {
+    return (<tbody className={styles.kana_rows}>
+        {kanaRows.map((kanaRow, index) => {
+            const id = kanaRow.id;
+            return (
+                <tr key={kanaRow.id.toString()} className={styles.user_row}>
+                    {(index === 0) ? <td className={styles.kana_cell} rowSpan={rowSpan}>{kanaRow.kana}</td> : <></>}
+                    <td className={styles.name_cell}>{kanaRow.name}</td>
+                    <td className={styles.order_cell}>{kanaRow.order}</td>
+                </tr>);
+        })}
+    </tbody>)
+}
+
 export default function OrderTable({ users }: { users: UserData[] }) {
     const kanaUserMap: Map<KanaType, UserData[]> = new Map();
     initialCharacters.map(kana => kanaUserMap.set(kana, []));
@@ -51,19 +65,7 @@ export default function OrderTable({ users }: { users: UserData[] }) {
         }
     })
 
-    const createTbody = (kanaRows: UserRow[], rowSpan: number, columnNum: number) => {
-        return (<tbody className={styles.kana_rows}>
-            {kanaRows.map((kanaRow, index) => {
-                const id = kanaRow.id;
-                return (
-                    <tr key={kanaRow.id.toString()} className={styles.user_row}>
-                        {(index === 0) ? <td className={styles.kana_cell} rowSpan={rowSpan}>{kanaRow.kana}</td> : <></>}
-                        <td className={styles.name_cell}>{kanaRow.name}</td>
-                        <td className={styles.order_cell}>{kanaRow.order}</td>
-                    </tr>);
-            })}
-        </tbody>)
-    }
+
 
     const tables: JSX.Element[] = [];
     let currentKana: KanaType = "あ";
