@@ -42,11 +42,12 @@ export default function OrderTable({ users }: { users: UserData[] }) {
     const remainder = MAX_ROWS * MAX_COLUMNS - totalRow;
 
     const fullRows: UserRow[] = [];
+    const emptyRows: UserRow[] = []
+
     let rowCount = 0;
     initialCharacters.map((kana) => {
         const users = kanaUserMap.get(kana);
         if (users === undefined) return;
-
         (users).map(user => {
             const { id, kana, name, order } = user;
             const userRow: UserRow = { id: rowCount, kana: kana, name: name, order: order };
@@ -55,19 +56,26 @@ export default function OrderTable({ users }: { users: UserData[] }) {
         });
 
         for (let i = 0; i < spaceSize; i++) {
+
+            // there're no elements in corresponding kana
+            if (users.length === 0) {
+                emptyRows.push({ id: rowCount, kana: " ", name: "　　　　　　", order: "　　　　　" });
+                rowCount++;
+                continue;
+            }
+
+            // Add empty rows to make space after kana rows
             fullRows.push({ id: rowCount, kana: kana, name: "　　　　　　", order: "　　　　　" });
             rowCount++;
         }
-
-        if (kana === "わ") {
-            for (let i = 0; i < remainder; i++) {
-                fullRows.push({ id: rowCount, kana: kana, name: "　　　　　　", order: "　　　　　" });
-                rowCount++;
-            }
-        }
     })
 
-
+    // Add empty rows
+    for (let i = 0; i < remainder; i++) {
+        fullRows.push({ id: rowCount, kana: " ", name: "　　　　　　", order: "　　　　　" });
+        rowCount++;
+    }
+    fullRows.push(...emptyRows);
 
     const tables: JSX.Element[] = [];
     let currentKana: KanaType = "あ";
