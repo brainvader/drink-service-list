@@ -91,7 +91,7 @@ export default function OrderTable({ users }: { users: UserData[] }) {
             if (j === MAX_ROWS - 1) {
                 const rowSpan = kanaRows.length;
                 rows.push(createTbody(kanaRows, rowSpan, i));
-                continue;
+                break;
             }
 
             // next kana
