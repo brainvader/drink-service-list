@@ -58,12 +58,10 @@ export default function OrderTable({ users }: { users: UserData[] }) {
         });
     })
 
-    // Add empty rows
     for (let i = 0; i < remainder; i++) {
         fullRows.push({ id: rowCount, kana: " ", name: "　　　　　　", order: "　　　　　" });
         rowCount++;
     }
-    fullRows.push(...emptyRows);
 
     const tables: JSX.Element[] = [];
     let currentKana: KanaType = "あ";
