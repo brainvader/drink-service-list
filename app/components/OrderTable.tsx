@@ -36,10 +36,13 @@ export default function OrderTable({ users }: { users: UserData[] }) {
         kanaUserMap.set(kana, [user]);
     })
 
-    const totalUser = users.length;
-    const spaceSize = Math.floor((MAX_ROWS * MAX_COLUMNS - totalUser) / initialCharacters.length);
-    const totalRow = totalUser + spaceSize * initialCharacters.length;
-    const remainder = MAX_ROWS * MAX_COLUMNS - totalRow;
+    const TOTAL_USER = users.length;
+    const TOTAL_CELL = MAX_ROWS * MAX_COLUMNS;
+    const remainder = TOTAL_CELL - TOTAL_USER;
+
+    // TODO: Display popup or some error message
+    // The total number of users nerver be fewer than that of cells.
+    if (remainder < 0) return;
 
     const fullRows: UserRow[] = [];
     const emptyRows: UserRow[] = []
