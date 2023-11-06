@@ -56,20 +56,6 @@ export default function OrderTable({ users }: { users: UserData[] }) {
             fullRows.push(userRow);
             rowCount++;
         });
-
-        for (let i = 0; i < spaceSize; i++) {
-
-            // there're no elements in corresponding kana
-            if (users.length === 0) {
-                emptyRows.push({ id: rowCount, kana: " ", name: "　　　　　　", order: "　　　　　" });
-                rowCount++;
-                continue;
-            }
-
-            // Add empty rows to make space after kana rows
-            fullRows.push({ id: rowCount, kana: kana, name: "　　　　　　", order: "　　　　　" });
-            rowCount++;
-        }
     })
 
     // Add empty rows
