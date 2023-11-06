@@ -45,7 +45,6 @@ export default function OrderTable({ users }: { users: UserData[] }) {
     if (remainder < 0) return;
 
     const fullRows: UserRow[] = [];
-    const emptyRows: UserRow[] = []
 
     let rowCount = 0;
     initialCharacters.map((kana) => {
