@@ -95,7 +95,7 @@ export default function OrderTable({ users }: { users: UserData[] }) {
             }
 
             // next kana
-            if (currentKana !== row.kana) {
+            if (row.kana !== currentKana) {
                 const rowSpan = kanaRows.length;
                 rows.push(createTbody(kanaRows, rowSpan, i));
                 const newKana: KanaType = row.kana;
