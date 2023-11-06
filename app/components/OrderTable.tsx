@@ -36,13 +36,15 @@ export default function OrderTable({ users }: { users: UserData[] }) {
         kanaUserMap.set(kana, [user]);
     })
 
-    const totalUser = users.length;
-    const spaceSize = Math.floor((MAX_ROWS * MAX_COLUMNS - totalUser) / initialCharacters.length);
-    const totalRow = totalUser + spaceSize * initialCharacters.length;
-    const remainder = MAX_ROWS * MAX_COLUMNS - totalRow;
+    const TOTAL_USER = users.length;
+    const TOTAL_CELL = MAX_ROWS * MAX_COLUMNS;
+    const remainder = TOTAL_CELL - TOTAL_USER;
+
+    // TODO: Display popup or some error message
+    // The total number of users nerver be fewer than that of cells.
+    if (remainder < 0) return;
 
     const fullRows: UserRow[] = [];
-    const emptyRows: UserRow[] = []
 
     let rowCount = 0;
     initialCharacters.map((kana) => {
@@ -54,28 +56,12 @@ export default function OrderTable({ users }: { users: UserData[] }) {
             fullRows.push(userRow);
             rowCount++;
         });
-
-        for (let i = 0; i < spaceSize; i++) {
-
-            // there're no elements in corresponding kana
-            if (users.length === 0) {
-                emptyRows.push({ id: rowCount, kana: " ", name: "　　　　　　", order: "　　　　　" });
-                rowCount++;
-                continue;
-            }
-
-            // Add empty rows to make space after kana rows
-            fullRows.push({ id: rowCount, kana: kana, name: "　　　　　　", order: "　　　　　" });
-            rowCount++;
-        }
     })
 
-    // Add empty rows
     for (let i = 0; i < remainder; i++) {
         fullRows.push({ id: rowCount, kana: " ", name: "　　　　　　", order: "　　　　　" });
         rowCount++;
     }
-    fullRows.push(...emptyRows);
 
     const tables: JSX.Element[] = [];
     let currentKana: KanaType = "あ";
@@ -91,11 +77,11 @@ export default function OrderTable({ users }: { users: UserData[] }) {
             if (j === MAX_ROWS - 1) {
                 const rowSpan = kanaRows.length;
                 rows.push(createTbody(kanaRows, rowSpan, i));
-                continue;
+                break;
             }
 
             // next kana
-            if (currentKana !== row.kana) {
+            if (row.kana !== currentKana) {
                 const rowSpan = kanaRows.length;
                 rows.push(createTbody(kanaRows, rowSpan, i));
                 const newKana: KanaType = row.kana;
